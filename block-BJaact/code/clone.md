@@ -10,12 +10,12 @@ let person2 = person;
 
 person.firstName = 'Arya';
 
-console.log(person2.firstName); // output
-console.log(person.firstName); // output
-console.log(person.lastName); // output
-console.log(person == person2); // output
-console.log(person === person2); // output
-console.log(person.lastName === person2.lastName); // output
+console.log(person2.firstName); // "Arya" , as person2 and person both point to same memory location and new value will be updated at the original place
+console.log(person.firstName); // "Arya" as person2 and person both point to same memory location and new value will be updated at the original place
+console.log(person.lastName); //"Doe" as person2 and person both point to same memory location 
+console.log(person == person2); //trueas person2 and person both point to same memory location 
+console.log(person === person2); // true as person2 and person both point to same memory location 
+console.log(person.lastName === person2.lastName); //true, as person2 and person both point to same memory location 
 ```
 
 2. Write the output with reason:
@@ -35,19 +35,19 @@ let person = {
 let personTwo = { ...person };
 
 person.firstName = 'Arya';
-person.city = 'Navada';
+person.address.city = 'Navada';
 
-console.log(personTwo.firstName); // output
-console.log(person.firstName); // output
-console.log(personTwo.lastName); // output
-console.log(person.firstName === personTwo.firstName); // output
-console.log(person == personTwo); // output
-console.log(person === personTwo); // output
-console.log(person.address === personTwo.address); // output
-console.log(person.address == personTwo.address); // output
-console.log(personTwo.address.city); // output
-console.log(person.address.city); // output
-console.log(person.address.city == personTwo.address.city); // output
+console.log(personTwo.firstName); // "John" because the value was copied into personTwo before updating
+console.log(person.firstName); // "Arya", as new value was updated for person
+console.log(personTwo.lastName); // "Doe", because the value was copied into personTwo
+console.log(person.firstName === personTwo.firstName); // false, values are different as for person it was updated to "Arya"
+console.log(person == personTwo); // false, object was cloned
+console.log(person === personTwo); // false, object was cloned
+console.log(person.address === personTwo.address); //true, because cloning was shallow
+console.log(person.address == personTwo.address); // true, because cloning was shallow
+console.log(personTwo.address.city); // "Navada", as value for city was updated it got changed for both objects because shallow cloing was done earlier 
+console.log(person.address.city); // "Navada", as value for city was updated it got changed for both objects because shallow cloing was done earlier
+console.log(person.address.city == personTwo.address.city); // true,  as value for city was updated it got changed for both objects because shallow cloing was done earlier
 ```
 
 3. Write the output with reason:
@@ -67,19 +67,19 @@ let person = {
 let personTwo = { ...person, address: { ...person.address } };
 
 person.firstName = 'Arya';
-person.city = 'Navada';
+person.address.city = 'Navada';
 
-console.log(personTwo.firstName); // output
-console.log(person.firstName); // output
-console.log(personTwo.lastName); // output
-console.log(person.firstName === personTwo.firstName); // output
-console.log(person == personTwo); // output
-console.log(person === personTwo); // output
-console.log(person.address === personTwo.address); // output
-console.log(person.address == personTwo.address); // output
-console.log(personTwo.address.city); // output
-console.log(person.address.city); // output
-console.log(person.address.city == personTwo.address.city); // output
+console.log(personTwo.firstName); // "John" , as value was cloned earlier using spreas operator
+console.log(person.firstName); // "Arya" ,as the value was changed for person
+console.log(personTwo.lastName); // "Doe"  as the value was cloned earlier using spreas operator
+console.log(person.firstName === personTwo.firstName); // false as  value was changed for person
+console.log(person == personTwo); // false as they point to different  memory locations due to cloning
+console.log(person === personTwo); // false as they point to different  memory locations due to cloning
+console.log(person.address === personTwo.address); // false as they point to different  memory locations due to deep cloning
+console.log(person.address == personTwo.address); // false as they point to different  memory locations due to deep cloning
+console.log(personTwo.address.city); // "San Jose" as as value was cloned earlier using spreas operator
+console.log(person.address.city); // "Navada"as the value was changed for person
+console.log(person.address.city == personTwo.address.city); // false as they point to different  memory locations due to deep cloning and for person it was updated
 ```
 
 4. Clone the `blogs` variable into a new variable named `clonedBlogs`
@@ -103,7 +103,7 @@ let blogs = [
   },
 ];
 
-// Your code goes here
+let clonedBlogs= [...blogs];
 ```
 
 5. Clone the `question` variable into a new variable named `questionClone`
@@ -128,7 +128,8 @@ var questions = [
   },
 ];
 
-// Your code goes here
+let questionClone= [...questions, {responses:[...questions[0].responses]}];
+            
 ```
 
 6. Clone the `allBlogs` variable into a new variable named `allBlogsClone`
@@ -155,7 +156,7 @@ var allBlogs = {
   ],
 };
 
-// Your code goes here
+let allBlogsClone={...allBlogs, author:{...allBlogs.author}, comments:[...allBlogs.comments]}; 
 ```
 
 7. Clone the `person` variable into a new variable named `clonedPerson`
@@ -188,14 +189,15 @@ let person = [
   },
 ];
 
-// Your code goes here
+let clonedPerson= [...person, {input:{...person[0].input, name:{...person[0].input.name},birthday:{...person[0].input.birthday}}}, {output:{...person[0].output}}];
 ```
 
 8. Write a function named `cloneObject` that accepts an object and returns the clone of the object
 
 ```js
-function cloneObject() {
-  // your code
+function cloneObject(obj) {
+     let objClone={...obj};
+     return objClone;
 }
 
 // Run the test below to check your function
